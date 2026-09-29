@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La ética material de los valores de Max Scheler</title>
+    <style>
+        /* ============================================
+           VARIABLES DE COLOR (TEMA CLARO Y OSCURO)
+           ============================================ */
+        :root {
+            --bg-primary: #f8f6f2;
+            --bg-secondary: #fefdfb;
+            --bg-nav: #fefdfb;
+            --text-primary: #1a1a1a;
+            --text-secondary: #3a3a3a;
+            --text-muted: #6b6b6b;
+            --border-color: #e0ddd8;
+            --accent-color: #2c3e50;
+            --accent-hover: #1a252f;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --highlight-bg: #f0ede8;
+            --keyword-color: #1a1a1a;
+            --bracket-color: #5a6c7d;
+            --table-header-bg: #2c3e50;
+            --table-header-text: #ffffff;
+            --table-row-alt: #f5f3ef;
+            --table-border: #ddd9d3;
+            --scrollbar-track: #f0ede8;
+            --scrollbar-thumb: #c0bdb8;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-nav: #1a1a1a;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #808080;
+            --border-color: #333333;
+            --accent-color: #6c8ebf;
+            --accent-hover: #8aa8d0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5);
+            --highlight-bg: #2a2a2a;
+            --keyword-color: #e8e8e8;
+            --bracket-color: #8aa8d0;
+            --table-header-bg: #2c3e50;
+            --table-header-text: #ffffff;
+            --table-row-alt: #252525;
+            --table-border: #3a3a3a;
+            --scrollbar-track: #1a1a1a;
+            --scrollbar-thumb: #444444;
+        }
+
+        /* ============================================
+           RESET Y ESTILOS BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Swift', 'Georgia', 'Times New Roman', serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 17px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           BARRA DE NAVEGACIÓN SUPERIOR
+           ============================================ */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: var(--bg-nav);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+
+        .top-bar .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 60%;
+        }
+
+        .top-bar .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-theme {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            min-width: 44px;
+        }
+
+        .btn-theme:hover {
+            background: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-theme .icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* ============================================
+           CONTENEDOR PRINCIPAL
+           ============================================ */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 32px 80px 32px;
+        }
+
+        /* ============================================
+           INDICADOR DE PROGRESO
+           ============================================ */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent-color);
+            z-index: 1001;
+            transition: width 0.1s ease;
+            width: 0%;
+        }
+
+        /* ============================================
+           NAVEGACIÓN ENTRE SECCIONES (FLECHAS)
+           ============================================ */
+        .nav-arrows {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .nav-arrows button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-arrows button:hover {
+            background: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-hover);
+            transform: scale(1.05);
+        }
+
+        .nav-arrows button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* ============================================
+           TIPOGRAFÍA Y CONTENIDO
+           ============================================ */
+        h1 {
+            font-size: 2.4em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            font-weight: 400;
+        }
+
+        .subtitle-small {
+            font-size: 1em;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 60px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 40px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        h4 {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 30px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            text-align: justify;
+            hyphens: auto;
+            color: var(--text-primary);
+        }
+
+        /* Palabras clave en negritas */
+        strong, b {
+            font-weight: 700;
+            color: var(--keyword-color);
+        }
+
+        /* Corchetes para tecnicismos */
+        .term {
+            color: var(--bracket-color);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        /* ============================================
+           LISTAS
+           ============================================ */
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 28px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            text-align: justify;
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           TABLAS
+           ============================================ */
+        .table-container {
+            overflow-x: auto;
+            margin: 24px 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--table-border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+            background: var(--bg-secondary);
+        }
+
+        thead {
+            background: var(--table-header-bg);
+            color: var(--table-header-text);
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+            letter-spacing: 0.3px;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--table-border);
+            vertical-align: top;
+            text-align: justify;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--table-row-alt);
+        }
+
+        tbody tr:hover {
+            background: var(--highlight-bg);
+            transition: background 0.2s ease;
+        }
+
+        /* ============================================
+           SECCIONES COLAPSABLES
+           ============================================ */
+        .section {
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-secondary);
+            transition: background 0.2s ease;
+            user-select: none;
+        }
+
+        .section-header:hover {
+            background: var(--highlight-bg);
+        }
+
+        .section-header h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-header .toggle-icon {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .section-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 24px;
+        }
+
+        .section-content.open {
+            max-height: 20000px;
+            padding: 0 24px 24px 24px;
+        }
+
+        /* ============================================
+           CAJAS DE EJEMPLO Y ANALOGÍA
+           ============================================ */
+        .example-box {
+            background: var(--highlight-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+            transition: background 0.3s ease;
+        }
+
+        .example-box .label {
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .example-box p {
+            margin-bottom: 8px;
+            font-size: 0.98em;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           SCROLLBAR PERSONALIZADA
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+
+            .container {
+                padding: 90px 16px 80px 16px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            .top-bar .title {
+                font-size: 11px;
+                max-width: 40%;
+            }
+
+            .btn-theme {
+                padding: 6px 10px;
+                font-size: 14px;
+                min-width: 38px;
+            }
+
+            .nav-arrows button {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .section-header h2 {
+                font-size: 1em;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+
+        /* ============================================
+           ANIMACIONES
+           ============================================ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* ============================================
+           NOTA AL PIE
+           ============================================ */
+        .footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de progreso -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="title">Max Scheler · Ética material de los valores</div>
+        <div class="controls">
+            <button class="btn-theme" id="themeToggle" title="Cambiar tema">
+                <span class="icon">🌙</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="container" id="mainContent">
+
+        <!-- ============================================
+             PORTADA
+             ============================================ -->
+        <header class="fade-in">
+            <h1>La ética material de los valores de Max Scheler</h1>
+            <p class="subtitle">Fundamentos, jerarquía axiológica y proyección jurídica</p>
+            <p class="subtitle-small">Resumen académico integral con ejemplos y analogías</p>
+        </header>
+
+        <!-- ============================================
+             SECCIÓN 1: INTRODUCCIÓN
+             ============================================ -->
+        <div class="section">
+            <div class="section-header active" data-target="sec1">
+                <h2>1. Introducción: El problema de la ética en el siglo XX</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content open" id="sec1">
+                <p>A comienzos del siglo XX, la filosofía moral europea se enfrentaba a una encrucijada de dimensiones históricas. Por un lado, el <strong>formalismo kantiano</strong> [corriente ética que reduce la moralidad a la forma del imperativo categórico, sin contenido material] había establecido un imperativo universal y racional, pero carente de contenido. Por otro lado, el <strong>utilitarismo</strong> [doctrina que mide la bondad por las consecuencias] y las éticas de bienes reducían la moralidad a cálculos de consecuencias o a la búsqueda de placer.</p>
+
+                <p><strong>Max Scheler</strong> (1874-1928) irrumpió en este debate con una propuesta radicalmente nueva: <strong>la ética material de los valores</strong>. Su tesis central es que existen valores objetivos, universales y jerárquicamente ordenados, que no son inventados por el sujeto ni derivados de la experiencia empírica, sino <strong>captados por una intuición emocional</strong> que él denomina <strong>"intuición del corazón"</strong>. Esta intuición no es irracional; es <strong>supra-racional</strong> [que trasciende lo meramente racional sin negarlo].</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que eres un arquitecto. Tienes los planos, los materiales, las herramientas. Sabes calcular estructuras, medir resistencias, diseñar cimientos. Pero si no sabes <em>para qué</em> construyes, si no tienes una visión de la vida humana que habitará ese edificio, tu obra será un conjunto de paredes sin alma. Eso es el derecho sin valores: un edificio sin alma. Scheler le da alma al derecho al recordarnos que detrás de cada norma hay una concepción del ser humano.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un juez que tiene que decidir sobre la custodia de un niño. Las leyes le dicen que debe evaluar la capacidad económica de los padres, el entorno familiar, las condiciones materiales. Pero la ley no le dice cómo pesar el amor de una madre que trabaja 12 horas al día para alimentar a su hijo frente a la estabilidad de un padre que gana más pero nunca está en casa. Ese juicio requiere algo más que conocimiento legal: requiere una intuición de valores. Scheler le da al juez las herramientas para esa intuición.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 2: CONTEXTO BIOGRÁFICO
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec2">
+                <h2>2. Contexto biográfico e intelectual de Max Scheler</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec2">
+                <p><strong>Max Ferdinand Scheler</strong> nació en Múnich el 22 de agosto de 1874. Estudió filosofía y sociología en las universidades de Múnich, Berlín y Jena, y fue discípulo de Rudolf Eucken. Su vida intelectual atravesó varias etapas: una primera fase católica, una segunda fase de alejamiento de la religión institucional, y una tercera fase de reflexión sobre la <strong>antropología filosófica</strong> [disciplina que estudia la esencia y el puesto del ser humano en el cosmos].</p>
+
+                <p>Su obra capital, <em>El formalismo en la ética y la ética material de los valores</em> (1913/16), es un <strong>magnum opus</strong> [obra maestra] que critica el formalismo kantiano y establece las bases de una ética material fundada en valores objetivos. Murió en Frankfurt am Main el 19 de mayo de 1928, justo antes de asumir su puesto como profesor en la Universidad de Frankfurt.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>La vida de Scheler fue como un edificio en construcción permanente. Cada etapa de su pensamiento añadía un piso nuevo, pero nunca derribaba los anteriores. Su fase católica fue el cimiento; su fase de alejamiento religioso fue la estructura; su fase antropológica fue la terraza desde donde contempló el misterio del ser humano. Murió antes de poner el último ladrillo, pero el edificio quedó en pie para que otros lo habitaran.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un abogado que comienza su carrera defendiendo causas sociales con fervor religioso. Con los años, pierde la fe institucional, pero no pierde el compromiso con la justicia. Se vuelve más crítico, más profundo, más humano. Ese abogado ha recorrido el mismo camino que Scheler: del dogma a la sabiduría, de la certeza a la búsqueda.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 3: CRÍTICA A KANT
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec3">
+                <h2>3. La crítica al formalismo kantiano</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec3">
+                <p>Scheler reconoce que Kant tenía razón al rechazar una ética fundada en bienes sensibles. Sin embargo, considera que Kant <strong>se equivoca al identificar toda ética material con una ética de bienes empíricos</strong>. Scheler formula así su contraargumento central: <strong>"Es falso que toda ética material sea necesariamente ética de bienes"</strong>.</p>
+
+                <p>Para Kant, la forma (el imperativo categórico) es lo <strong>a priori</strong> [que es independiente de la experiencia], y la materia (los contenidos empíricos) es lo <strong>a posteriori</strong> [que depende de la experiencia]. Scheler invierte esta relación: <strong>existe un a priori material</strong>, un contenido axiológico que se capta por intuición emocional y que no deriva de la experiencia.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que Kant te da un mapa perfecto de la ciudad, con todas las calles, avenidas y plazas. El mapa es lógico, coherente, universal. Pero no te dice qué lugares vale la pena visitar, qué calles tienen alma, qué plazas tienen historia. Scheler te da eso: no solo el mapa, sino la brújula del corazón que te dice hacia dónde caminar.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un juez que debe decidir si condena a una madre que robó medicinas para su hijo enfermo. Kant le diría: "El robo es incorrecto universalmente; debes condenarla". Scheler le diría: "El robo es un valor negativo, pero la salud de un niño es un valor superior. Debes sopesar los valores en conflicto y elegir el superior". La diferencia es enorme: Kant aplica una fórmula; Scheler capta una situación humana concreta.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 4: NATURALEZA DE LOS VALORES
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec4">
+                <h2>4. La naturaleza de los valores: materialidad y a priorismo</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec4">
+                <p>Scheler distingue claramente entre <strong>bienes</strong> y <strong>valores</strong>. Los bienes son las cosas físicas valiosas (un contrato, una propiedad), cuya existencia está ligada a la integridad del soporte material. Los valores, en cambio, son <strong>cualidades independientes</strong> que no se destruyen con la cosa. La justicia no desaparece porque una ley sea injusta; mantiene su vigencia independientemente de la realidad material.</p>
+
+                <p>Los valores son <strong>materiales</strong> en el sentido de que tienen contenido, pero no son <strong>empíricos</strong> en el sentido de que se deriven de la experiencia sensorial. Son <strong>a priori</strong>, pero no formales: tienen un contenido axiológico que se capta por intuición emocional. Esta es la gran aportación de Scheler: <strong>un a priori material</strong> que no es ni formal (como en Kant) ni empírico (como en el empirismo).</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que tienes un diamante en la mano. El diamante es un bien: tiene peso, brillo, valor de mercado. Pero la belleza del diamante es un valor: no se puede pesar, no se puede vender, no se puede destruir. Si el diamante se rompe, la belleza sigue existiendo como ideal. Los bienes son los portadores; los valores son lo portado.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en la Constitución de un país. El documento físico es un bien: papel, tinta, firmas. Pero la dignidad humana que proclama es un valor: no se quema cuando se quema el papel, no se deroga cuando se deroga la ley. En la Alemania nazi, las leyes fueron derogadas, pero la dignidad humana siguió existiendo como valor que condenaba esas leyes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 5: POLARIDAD DE LOS VALORES
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec5">
+                <h2>5. La polaridad de los valores</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec5">
+                <p>Todo valor existe en una <strong>dualidad polar</strong>: un polo positivo y un polo negativo. No son simples etiquetas, sino cualidades objetivas. El polo positivo eleva, construye y da sentido; el polo negativo degrada, destruye y genera vacío. La moralidad consiste en <strong>elegir el polo positivo</strong> y, en caso de conflicto, el valor superior según la jerarquía.</p>
+
+                <p>Scheler insiste en que no podemos entender el valor positivo sin su polo negativo. Para saber qué es la justicia, necesito entender qué es la injusticia. Para valorar la salud, debo conocer la enfermedad. Para apreciar la verdad, debo rechazar la mentira.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina una montaña con dos laderas. Una ladera sube hacia la cima, hacia la luz, hacia la vida. La otra baja hacia el abismo, hacia la oscuridad, hacia la muerte. Cada valor es como una encrucijada en esa montaña: puedes elegir la ladera positiva o la negativa. No hay término medio: o subes o bajas.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un abogado que recibe un caso de divorcio. La esposa quiere quedarse con la casa; el esposo quiere venderla para pagar deudas. El abogado puede elegir el polo positivo (buscar una solución equitativa, mediar, proteger a los hijos) o el polo negativo (azuzar el conflicto, mentir, destruir al adversario). Su elección no solo afecta el resultado del caso; afecta su propia alma y la vida de una familia.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 6: CRITERIOS DE JERARQUÍA
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec6">
+                <h2>6. Los cinco criterios de la jerarquía axiológica</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec6">
+                <p>Scheler establece cinco criterios para determinar la altura de un valor. No son arbitrarios, sino que expresan la estructura objetiva del orden axiológico.</p>
+
+                <h4>1. Durabilidad</h4>
+                <p>Los valores son tanto más altos cuanto más duraderos. La amistad dura toda la vida; un helado dura cinco minutos. Los valores sensibles son efímeros; los espirituales y religiosos son eternos.</p>
+
+                <h4>2. Divisibilidad</h4>
+                <p>Mientras más altos son los valores, menos divisibles son. El amor crece al compartirse; el dinero se divide y se agota.</p>
+
+                <h4>3. Fundamentación</h4>
+                <p>El valor fundamentador es superior con respecto al fundamentado. La salud fundamenta el placer; sin salud, el placer se vuelve imposible. La justicia fundamenta la legalidad.</p>
+
+                <h4>4. Satisfacción</h4>
+                <p>Mientras más altos son los valores, más profunda es la satisfacción que produce su cumplimiento. La alegría de ver a un inocente libre llena más que la alegría de ganar un caso por un tecnicismo.</p>
+
+                <h4>5. Relatividad</h4>
+                <p>El valor de lo agradable es relativo a seres de sensibilidad; el valor de lo vital es relativo a seres vivos. En cambio, los valores absolutos existen independientemente de la esencia de la sensibilidad y de la vida. La justicia es para todos; lo agradable es solo para mí.</p>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un abogado que tiene que elegir entre dos casos. El primero le reportará un millón de dólares, pero defenderá a un culpable. El segundo le reportará cien dólares, pero defenderá a un inocente. Aplicando los cinco criterios: el caso del inocente es más duradero (la paz dura toda la vida), más divisible (la justicia es para todos), más fundamental (la justicia fundamenta la ley), más satisfactorio (la paz interior llena más que el dinero) y menos relativo (la justicia es universal). La elección es clara.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 7: VALORES SENSIBLES
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec7">
+                <h2>7. Los valores sensibles o hedónicos</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec7">
+                <p>Son los valores de lo agradable y lo desagradable, a los que corresponden los estados afectivos del placer y el dolor sensibles. Incluyen el placer físico, el confort, la comodidad, la utilidad, el lujo. Scheler los llama <strong>"valores hedónicos"</strong> y son la base de la pirámide. No son malos en sí mismos; se vuelven problemáticos cuando se convierten en la única brújula de la vida.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que estás en el sótano de un edificio. Hace calor en verano, frío en invierno. Hay ratones, humedad, oscuridad. Pero también hay una despensa llena de comida, una cama cómoda, una televisión enorme. Es el sótano del placer inmediato. Puedes vivir ahí, pero nunca verás la luz del sol.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>El abogado que acepta sobornos para comprarse un auto lujoso. Al principio siente placer: el olor del cuero, la velocidad, la envidia de los demás. Pero al poco tiempo, el auto se vuelve una jaula. No puede mirar a sus hijos a los ojos. El placer sensible es efímero y no llena el alma.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 8: VALORES VITALES
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec8">
+                <h2>8. Los valores vitales</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec8">
+                <p>Representan una modalidad axiológica independiente e irreductible a lo agradable y lo desagradable. Son los valores de lo noble y lo vulgar, lo sano y lo malsano, lo fuerte y lo débil, lo valiente y lo cobarde. Scheler los llama <strong>"valores vitales"</strong> y son superiores a los sensibles porque fundamentan la vida misma.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que sales del sótano y llegas a la planta baja. Hay ventanas, luz natural, aire fresco. Tienes un jardín, un perro que juega, una bicicleta para pasear. Es la planta baja de la vida: la salud, la fuerza, la valentía. No es la cima, pero es un lugar digno para vivir.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>El defensor público que trabaja en zona rural con sueldo bajo pero con valentía y dignidad. Su salud se resiente, pero su nobleza lo mantiene en pie. Otro caso: el fiscal que investiga a una mafia a riesgo de su vida. No lo hace por dinero (sensible), sino por valentía (vital).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 9: VALORES ESPIRITUALES
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec9">
+                <h2>9. Los valores espirituales</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec9">
+                <p>Se captan por un sentimiento espiritual y en actos como preferir y amar. Se dividen en <strong>estéticos</strong>, <strong>jurídicos</strong> e <strong>intelectuales</strong>. Scheler los llama <strong>"valores espirituales"</strong> y son superiores a los vitales porque no dependen de lo biológico. Son los valores de la cultura, del derecho, de la ciencia, del arte.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que subes al tercer piso del edificio. Desde la ventana ves la ciudad entera: sus calles, sus plazas, sus monumentos. Ya no te preocupa el barro del sótano ni el jardín de la planta baja. Te preocupa la belleza de la ciudad, la justicia de sus leyes, la verdad de sus libros.</p>
+                </div>
+
+                <h4>9.1 Valores estéticos</h4>
+                <p>Belleza, armonía, gracia, sublimidad. Su opuesto: fealdad, desarmonía, vulgaridad. <strong>Ejemplo:</strong> El abogado que redacta un escrito jurídico con elegancia y claridad, no solo con tecnicismos.</p>
+
+                <h4>9.2 Valores lógicos o del conocimiento</h4>
+                <p>Verdad, certeza, evidencia, sabiduría. Su opuesto: falsedad, error, mentira, ignorancia. <strong>Ejemplo:</strong> El investigador jurídico que busca la verdad procesal, no solo ganar el caso.</p>
+
+                <h4>9.3 Valores éticos y morales</h4>
+                <p>Justicia, bondad, honestidad, lealtad, responsabilidad, respeto, libertad, igualdad, solidaridad, tolerancia, paz, integridad, autenticidad, humildad, perseverancia. Sus opuestos: injusticia, maldad, deshonestidad, traición, irresponsabilidad, falta de respeto, opresión, discriminación, indiferencia, intolerancia, violencia, corrupción, hipocresía, soberbia, abandono. <strong>Ejemplo:</strong> El juez que condena a un poderoso contaminador aunque pierda su puesto.</p>
+
+                <h4>9.4 Valores sociales y políticos</h4>
+                <p>Democracia, legalidad, bien común, dignidad humana, justicia social, inclusión, transparencia, participación, pluralismo, seguridad jurídica, debido proceso, presunción de inocencia, independencia judicial, buena fe, reparación integral. Sus opuestos: autoritarismo, corrupción, interés particular, indignidad, explotación, exclusión, opacidad, apatía, fanatismo, inseguridad jurídica, violación procesal, condena anticipada, subordinación, mala fe, impunidad. <strong>Ejemplo:</strong> El fiscal que investiga a un funcionario corrupto sin importar su poder.</p>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 10: VALORES RELIGIOSOS
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec10">
+                <h2>10. Los valores religiosos</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec10">
+                <p>Son los valores más altos en la escala jerárquica. Se refieren al sentido de lo absoluto y trascendente; el amor es el acto por el que captamos los valores de lo santo y lo profano. Ante estos valores, los demás son como símbolos.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que llegas a la terraza del edificio. Desde allí ves el cielo, las estrellas, el infinito. Ya no te preocupa el sótano, ni el jardín, ni la ciudad. Te preocupa el sentido de todo, el misterio de la vida, la presencia de lo divino.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>La madre que perdona al asesino de su hijo y encuentra paz interior. Su amor le descubre un valor superior: la reconciliación. En el derecho, el amor a la justicia es el motor que impulsa al abogado ético. Sin amor, el derecho es solo un conjunto de reglas frías.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 11: LA PERSONA
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec11">
+                <h2>11. La persona como valor supremo</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec11">
+                <p>Para Scheler, la persona es el <strong>valor supremo</strong>, por encima de las leyes y el Estado. La persona es el <strong>centro concreto de actos</strong>, no un objeto. Esta noción es clave para entender su <strong>personalismo ético</strong> [corriente que sitúa a la persona como centro de la reflexión moral]: el derecho existe para proteger a las personas, no las personas para cumplir las leyes.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que tienes un reloj. El reloj es un objeto: puedes desarmarlo, venderlo, tirarlo. Ahora imagina que tienes un amigo. El amigo no es un objeto: no puedes desarmarlo, ni venderlo, ni tirarlo. El amigo es una persona: un centro de actos, una libertad, una dignidad. El derecho debe tratar a las personas como amigos, no como relojes.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un juez que tiene que decidir sobre la expropiación de tierras de una comunidad indígena para construir una carretera. La ley dice que la carretera es de utilidad pública. Pero la comunidad dice que esas tierras son sagradas, que son parte de su persona, de su historia. Scheler diría: la persona está por encima del Estado.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 12: COMUNIDAD Y SOLIDARIDAD
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec12">
+                <h2>12. La comunidad y el principio de solidaridad</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec12">
+                <p>Scheler desarrolla una teoría de las unidades sociales que incluye la comunidad y la sociedad. La comunidad se caracteriza por la <strong>solidaridad</strong>: todos sus miembros son corresponsables de todos. Este principio es fundamental en su ética: <strong>"la persona singular no es sólo corresponsable de sí misma, sino de toda la comunidad"</strong>.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina un barco. Si el barco se hunde, no importa si eres el capitán o el cocinero: todos se hunden. La solidaridad es eso: todos somos corresponsables de todos. Si un miembro de la comunidad sufre injusticia, toda la comunidad sufre. Si un miembro prospera, toda la comunidad prospera.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en una comunidad que se organiza para defender su territorio de una minera. No lo hacen por dinero, sino porque su tierra es parte de su persona, de su historia. El derecho debe estar al servicio de esa comunidad, no de la minera.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 13: EL AMOR
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec13">
+                <h2>13. El amor como órgano de descubrimiento de valores</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec13">
+                <p>El amor es, para Scheler, el <strong>órgano de aprehensión de los valores</strong> por excelencia. El amor no crea los valores, sino que los <strong>descubre</strong>. Scheler habla del <strong>ordo amoris</strong> [orden del amor, estructura afectiva fundamental de la persona] como el núcleo fundamental de los valores.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que tienes una linterna. Sin la linterna, caminas a oscuras, tropezando, sin ver los obstáculos. Con la linterna, ves el camino, distingues los peligros, encuentras el tesoro. El amor es esa linterna: ilumina los valores, los hace visibles, los vuelve accesibles.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en una madre que perdona al asesino de su hijo. No lo hace por deber, sino porque su amor es más grande que su odio. Ese amor le descubre un valor superior: la reconciliación. El egoísmo, en cambio, la habría encerrado en el rencor.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 14: ÉTICA MATERIAL
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec14">
+                <h2>14. La ética material y la superación del formalismo</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec14">
+                <p>La ética material de los valores se presenta como una superación del formalismo kantiano. Scheler no rechaza la universalidad ni el a priorismo, pero los <strong>reubica en el terreno de los contenidos axiológicos</strong>. La ética de Scheler es una <strong>ética de la persona</strong>, no una ética de normas.</p>
+
+                <p>Scheler rechaza que lo bueno sea solo lo que produce éxito. <strong>El fin no justifica los medios</strong>. La bondad reside en la intención moral y en la disposición de ánimo, no en el resultado externo.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que tienes que cruzar un río. Kant te da un manual de instrucciones: "Debes cruzar por el puente, porque es la norma universal". Scheler te da una brújula: "Mira el río, siente su corriente, observa el puente, y elige el mejor camino para cruzar". El manual es útil, pero la brújula es indispensable cuando el puente está roto.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 15: VALOR IMPULSA DEBER
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec15">
+                <h2>15. El valor impulsa el deber</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec15">
+                <p>El esquema es: <strong>Valor → Deber → Justicia</strong>. El valor es lo primario, la base de todo. El deber nace del valor. La justicia es el fin supremo que corona la estructura. No actuamos por un deber vacío, sino porque captamos un valor que nos impulsa.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina un automóvil. El valor es el motor; el deber es el volante; la justicia es el destino. Sin motor, el auto no arranca. Sin volante, el auto no dirige. Sin destino, el auto no tiene sentido. Los tres elementos son necesarios, pero el motor (el valor) es lo primario.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un médico que trabaja en una zona de guerra. No lo hace por un manual de procedimientos (deber vacío), sino porque capta el valor de la vida y la compasión. Ese valor impulsa su deber. Para un abogado: no defiendes a un inocente porque el código lo diga, sino porque amas la justicia.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 16: EUDEMONISMO
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec16">
+                <h2>16. Eudemonismo y felicidad profunda</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec16">
+                <p>Scheler distingue niveles de felicidad: <strong>sensibles</strong> (placer físico), <strong>vitales</strong> (salud y fuerza), <strong>anímicos</strong> (alegría y tristeza), <strong>espirituales</strong> (paz interior y amor) y <strong>felicidad profunda</strong> (la paz interior de saber que hiciste lo correcto frente al placer de un éxito pasajero).</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que tienes dos copas: una con champán y otra con agua. El champán produce euforia, pero se acaba pronto. El agua produce saciedad, pero dura toda la vida. La felicidad sensible es el champán; la felicidad profunda es el agua. ¿Cuál prefieres?</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un abogado que, después de años de defender causas justas y ganar poco, recibe una oferta para trabajar con un narcotraficante. Acepta, se compra un auto lujoso, pero una noche, al volver a casa, no puede dormir. Siente un vacío que el dinero no llena. Ese vacío es la señal de que ha traicionado un valor superior.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 17: PROTOTIPOS
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec17">
+                <h2>17. Los prototipos y las contrafilguras</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec17">
+                <p>Aprendemos de ejemplos, no de normas. Scheler distingue entre <strong>prototipos</strong> (un abogado íntegro que inspira justicia) y <strong>contrafilguras</strong> (un abogado corrupto que muestra lo que no queremos ser). <strong>La ética se aprende viendo a abogados íntegros, no solo leyendo códigos</strong>.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que estás en un bosque y tienes que elegir un camino. Hay dos senderos: uno te lleva a un claro con flores y pájaros; el otro te lleva a un pantano con serpientes. El prototipo es el claro; la contrafilgura es el pantano. La ética se aprende eligiendo el claro.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un profesor de derecho que nunca aceptó un soborno, que defendió a los pobres gratis, que murió pobre pero respetado. Ese es un prototipo. Otro abogado que se enriqueció defendiendo narcos, que terminó solo y enfermo. Esa es una contrafilgura. ¿A quién quieres imitar?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 18: DERECHO COMO INSTRUMENTO
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec18">
+                <h2>18. El derecho como instrumento de valores</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec18">
+                <p>La ética material de los valores tiene profundas implicaciones para el derecho. En primer lugar, <strong>el derecho no es un fin en sí mismo</strong>, sino un instrumento para realizar valores superiores. En segundo lugar, <strong>la persona está por encima del Estado</strong>. En tercer lugar, <strong>el amor a la justicia es más potente que el conocimiento del código</strong>.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que el derecho es un martillo. El martillo sirve para clavar clavos, para construir muebles, para reparar casas. Pero si usas el martillo para golpear a alguien, el martillo se convierte en un arma. El derecho es igual: puede ser un instrumento de justicia o un instrumento de opresión. Todo depende de los valores que lo guíen.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un abogado que defiende a una empresa contaminadora. La ley está de su lado: la empresa tiene permisos, ha cumplido los trámites, ha pagado impuestos. Pero el río está muerto, los niños están enfermos, la comunidad está destruida. El abogado puede ganar el caso, pero pierde su alma. Scheler le diría: el derecho no es un fin en sí mismo; es un instrumento para realizar valores superiores.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 19: BIEN Y VALOR
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec19">
+                <h2>19. La distinción entre bien y valor en el derecho</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec19">
+                <p>Esta es una distinción clave para abogados: el <strong>bien</strong> es la cosa física valiosa (un contrato, una propiedad). El <strong>valor</strong> es la cualidad independiente (la justicia, la verdad). La justicia no desaparece porque una ley sea injusta.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que tienes una semilla. La semilla es un bien: tiene peso, color, textura. Pero la vida que contiene es un valor: no se puede pesar, no se puede vender, no se puede destruir. Si la semilla se quema, la vida sigue existiendo como posibilidad. Los bienes son las semillas; los valores son la vida.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un notario que recibe un contrato de compraventa de una casa. El contrato es legal: las firmas están en orden, los impuestos están pagados. Pero el notario descubre que la casa fue obtenida mediante desalojo violento de una familia indígena. El contrato es un bien legal; la justicia es un valor que lo condena.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 20: BUEN SAMARITANO
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec20">
+                <h2>20. El Buen Samaritano y la jerarquía de valores</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec20">
+                <p><strong>«El corazón posee algo estrictamente análogo a la lógica»</strong>. Esta frase de Scheler resume su ética. Analicemos el caso del Buen Samaritano: los ladrones niegan todo valor; el sacerdote y el levita priorizan el valor vital (seguridad) y la norma; el samaritano actúa desde el valor religioso (amor trascendente).</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que vas caminando por la calle y ves a un hombre tirado, sangrando. Pasan un pastor que va a su culto, un abogado que va a una audiencia, y un joven skater que no tiene nada que perder. El pastor y el abogado pasan de largo porque tienen "cosas más importantes que hacer". El skater se detiene, llama a una ambulancia y acompaña al herido hasta que llega ayuda. ¿Quién actuó éticamente? El skater, porque captó el valor superior: la compasión.</p>
+                </div>
+
+                <div class="example-box">
+                    <span class="label">Ejemplo para el ámbito jurídico</span>
+                    <p>Piensa en un abogado que trabaja en una ONG defendiendo a migrantes. Gana lo justo para vivir, pero cada día ve el sufrimiento de personas que han huido de la violencia, que han perdido todo, que no tienen papeles. Podría renunciar y buscar un trabajo cómodo, pero se queda. ¿Por qué? Porque captó un valor superior: la solidaridad, la justicia, el amor al prójimo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 21: MORAL DE NORMAS VS. VALORES
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec21">
+                <h2>21. La moral de normas vs. la moral de valores</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec21">
+                <p>La norma (amar al prójimo) no movió al sacerdote. El valor captado en la intuición emocional movió al samaritano. Para el abogado: <strong>amar la justicia es más potente que conocer el código</strong>. Un juez que aplica la ley injusta porque "es la ley" vs. un juez que busca la justicia porque ama la justicia. El primero es un técnico; el segundo es un jurista ético.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía</span>
+                    <p>Imagina que tienes un mapa y una brújula. El mapa te dice dónde están las calles; la brújula te dice hacia dónde ir. El mapa es la norma; la brújula es el valor. Sin mapa, te pierdes; sin brújula, no sabes a dónde ir. Pero la brújula es más importante: si el mapa está equivocado, la brújula te salva.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 22: CONCLUSIONES
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec22">
+                <h2>22. Conclusiones</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec22">
+                <p>La ética material de los valores de Max Scheler representa una de las aportaciones más originales y profundas a la filosofía moral del siglo XX. Para los juristas, Scheler ofrece un marco para pensar el derecho no como un conjunto de reglas vacías, sino como un instrumento al servicio de la justicia y la dignidad humana.</p>
+
+                <div class="example-box">
+                    <span class="label">Analogía final</span>
+                    <p>Imagina que toda tu vida profesional es un edificio. El sótano son los valores sensibles: el dinero, el confort, el placer. La planta baja son los valores vitales: la salud, la valentía, la nobleza. El tercer piso son los valores espirituales: la justicia, la verdad, la belleza. La terraza son los valores religiosos: el amor, la paz, la trascendencia. ¿En qué piso quieres vivir? Scheler te invita a subir hasta la terraza. No es el camino más fácil, pero es el único que te permitirá dormir tranquilo, mirar a tus hijos a los ojos y sentir que tu vida tiene sentido.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 23: TABLA AXIOLÓGICA
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec23">
+                <h2>23. Tabla axiológica</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec23">
+                <p>Según Scheler, todo valor existe en una <strong>dualidad polar</strong>: un polo positivo (lo que <em>debe ser</em>) y un polo negativo (lo que <em>no debe ser</em>). La moralidad consiste en elegir el polo positivo y, en caso de conflicto, el valor superior según la jerarquía.</p>
+
+                <h3>Nivel 1: Valores sensibles o hedónicos</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subcategoría</th>
+                                <th>Polo positivo</th>
+                                <th>Polo negativo</th>
+                                <th>Ejemplo para el ámbito jurídico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Agradable / Desagradable</td>
+                                <td>Placer, goce, deleite</td>
+                                <td>Dolor, sufrimiento físico</td>
+                                <td>El abogado que acepta sobornos para comprarse un auto lujoso; el placer dura poco y deja vacío</td>
+                            </tr>
+                            <tr>
+                                <td>Útil / Perjudicial</td>
+                                <td>Utilidad, eficiencia, provecho</td>
+                                <td>Inutilidad, perjuicio, daño</td>
+                                <td>El jurista que elige casos solo por el honorario, sin importar la justicia</td>
+                            </tr>
+                            <tr>
+                                <td>Lujo / Necesidad</td>
+                                <td>Lujo, opulencia, abundancia</td>
+                                <td>Miseria, escasez, precariedad</td>
+                                <td>El abogado que acumula bienes pero no puede dormir por la conciencia intranquila</td>
+                            </tr>
+                            <tr>
+                                <td>Confort / Incomodidad</td>
+                                <td>Comodidad, bienestar material</td>
+                                <td>Incomodidad, carencia material</td>
+                                <td>El litigante que solo busca oficinas lujosas, no la excelencia profesional</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Nivel 2: Valores vitales o biológicos</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subcategoría</th>
+                                <th>Polo positivo</th>
+                                <th>Polo negativo</th>
+                                <th>Ejemplo para el ámbito jurídico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Noble / Vulgar</td>
+                                <td>Nobleza, distinción, grandeza de ánimo</td>
+                                <td>Vulgaridad, bajeza, mezquindad</td>
+                                <td>El defensor público que trabaja en zona rural con sueldo bajo pero con valentía y dignidad</td>
+                            </tr>
+                            <tr>
+                                <td>Sano / Enfermo</td>
+                                <td>Salud, fortaleza, resistencia</td>
+                                <td>Enfermedad, debilidad, fragilidad</td>
+                                <td>El abogado que descuida su salud por ganar casos, hasta que el cuerpo le pasa factura</td>
+                            </tr>
+                            <tr>
+                                <td>Fuerte / Débil</td>
+                                <td>Fuerza, poder, energía, empuje</td>
+                                <td>Debilidad, impotencia, fragilidad</td>
+                                <td>El juez que se doblega ante presiones políticas por falta de fortaleza interior</td>
+                            </tr>
+                            <tr>
+                                <td>Valiente / Cobarde</td>
+                                <td>Valentía, coraje, heroísmo</td>
+                                <td>Cobardía, miedo, pusilanimidad</td>
+                                <td>El abogado que enfrenta a una dictadura para defender a un opositor</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Nivel 3: Valores espirituales o culturales</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subcategoría</th>
+                                <th>Polo positivo</th>
+                                <th>Polo negativo</th>
+                                <th>Ejemplo para el ámbito jurídico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bello / Feo</td>
+                                <td>Belleza, armonía, gracia</td>
+                                <td>Fealdad, desarmonía, vulgaridad</td>
+                                <td>El abogado que redacta un escrito jurídico con elegancia y claridad</td>
+                            </tr>
+                            <tr>
+                                <td>Verdad / Falsedad</td>
+                                <td>Verdad, certeza, evidencia</td>
+                                <td>Falsedad, error, mentira</td>
+                                <td>El investigador jurídico que busca la verdad procesal, no solo ganar el caso</td>
+                            </tr>
+                            <tr>
+                                <td>Justo / Injusto</td>
+                                <td>Justicia, equidad, rectitud</td>
+                                <td>Injusticia, inequidad, arbitrariedad</td>
+                                <td>El juez que condena a un poderoso contaminador aunque pierda su puesto</td>
+                            </tr>
+                            <tr>
+                                <td>Honesto / Deshonesto</td>
+                                <td>Honestidad, honradez, transparencia</td>
+                                <td>Deshonestidad, corrupción, engaño</td>
+                                <td>El funcionario judicial que rechaza un soborno</td>
+                            </tr>
+                            <tr>
+                                <td>Solidaridad / Indiferencia</td>
+                                <td>Solidaridad, cooperación, fraternidad</td>
+                                <td>Indiferencia, egoísmo, apatía</td>
+                                <td>El abogado que asesora gratuitamente a una comunidad despojada</td>
+                            </tr>
+                            <tr>
+                                <td>Libertad / Opresión</td>
+                                <td>Libertad, autonomía, independencia</td>
+                                <td>Opresión, tiranía, esclavitud</td>
+                                <td>El abogado que defiende la libertad de expresión de un periodista crítico</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Nivel 4: Valores religiosos o trascendentales</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subcategoría</th>
+                                <th>Polo positivo</th>
+                                <th>Polo negativo</th>
+                                <th>Ejemplo para el ámbito jurídico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Santo / Profano</td>
+                                <td>Santidad, sacralidad, trascendencia</td>
+                                <td>Profanidad, secularidad, mundanidad</td>
+                                <td>La madre que perdona al asesino de su hijo y encuentra paz interior</td>
+                            </tr>
+                            <tr>
+                                <td>Amor / Odio</td>
+                                <td>Amor, compasión, caridad</td>
+                                <td>Odio, rencor, resentimiento</td>
+                                <td>El samaritano que se detiene a ayudar al herido mientras otros pasan de largo</td>
+                            </tr>
+                            <tr>
+                                <td>Esperanza / Desesperanza</td>
+                                <td>Esperanza, optimismo, confianza</td>
+                                <td>Desesperanza, pesimismo, fatalismo</td>
+                                <td>El defensor de derechos humanos que sigue luchando a pesar de las derrotas</td>
+                            </tr>
+                            <tr>
+                                <td>Reconciliación / Rencor</td>
+                                <td>Reconciliación, perdón, paz</td>
+                                <td>Rencor, venganza, resentimiento</td>
+                                <td>La víctima que perdona a su agresor y reconstruye su vida</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Nota:</strong> Cuando dos valores positivos entran en conflicto, Scheler nos dice que elijamos el superior según los cinco criterios: duración, divisibilidad, fundamentación, satisfacción y relatividad. La tabla es una brújula, pero el ejemplo vivo es el mejor maestro.</p>
+            </div>
+        </div>
+
+        <!-- ============================================
+             SECCIÓN 24: BIBLIOGRAFÍA
+             ============================================ -->
+        <div class="section">
+            <div class="section-header" data-target="sec24">
+                <h2>24. Bibliografía</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" id="sec24">
+                <h4>Obras de Max Scheler</h4>
+                <ul>
+                    <li>Scheler, M. (2001). <em>Ética: Nuevo ensayo de fundamentación de un personalismo ético</em>. Caparrós Editores.</li>
+                    <li>Scheler, M. (1941). <em>El formalismo en la ética y la ética material de los valores</em>. Revista de Occidente.</li>
+                    <li>Scheler, M. (1915). <em>De la revolución de los valores</em>.</li>
+                    <li>Scheler, M. (1915). <em>El santo, el genio y el héroe</em>.</li>
+                    <li>Scheler, M. (1921). <em>De lo eterno en el hombre</em>.</li>
+                    <li>Scheler, M. (1928). <em>El puesto del hombre en el cosmos</em>.</li>
+                </ul>
+
+                <h4>Obras sobre Scheler</h4>
+                <ul>
+                    <li>Diccionario de Filosofía Herder: Max Scheler y la Axiología.</li>
+                    <li>Hessen, J. (1925). <em>Filosofía de los valores</em>.</li>
+                    <li>Hartmann, N. (1926). <em>Ética</em>.</li>
+                    <li>Wojtyla, K. (1960). <em>Max Scheler y la ética cristiana</em>.</li>
+                </ul>
+
+                <h4>Fuentes jurídicas y bíblicas</h4>
+                <ul>
+                    <li>Biblia de Jerusalén: Parábola del Buen Samaritano (Lucas 10, 25-37).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================
+             PIE DE PÁGINA
+             ============================================ -->
+        <footer class="footer">
+            <p>La ética material de los valores de Max Scheler · Resumen académico integral</p>
+        </footer>
+
+    </div>
+
+    <!-- Flechas de navegación -->
+    <div class="nav-arrows">
+        <button id="prevBtn" title="Sección anterior (←)">←</button>
+        <button id="nextBtn" title="Sección siguiente (→)">→</button>
+    </div>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================
+            // CONFIGURACIÓN DE TEMA (CLARO/OSCURO)
+            // ============================================
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('.icon');
+            const htmlElement = document.documentElement;
+
+            // Cargar tema guardado
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateThemeButton(savedTheme);
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeButton(newTheme);
+            });
+
+            function updateThemeButton(theme) {
+                if (theme === 'dark') {
+                    themeIcon.textContent = '☀️';
+                } else {
+                    themeIcon.textContent = '🌙';
+                }
+            }
+
+            // ============================================
+            // SECCIONES COLAPSABLES
+            // ============================================
+            const sectionHeaders = document.querySelectorAll('.section-header');
+
+            sectionHeaders.forEach(function(header) {
+                header.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const content = document.getElementById(targetId);
+                    const isActive = this.classList.contains('active');
+
+                    // Cerrar todas las secciones
+                    sectionHeaders.forEach(function(h) {
+                        h.classList.remove('active');
+                        const t = h.getAttribute('data-target');
+                        const c = document.getElementById(t);
+                        if (c) {
+                            c.classList.remove('open');
+                        }
+                    });
+
+                    // Abrir la sección clickeada si no estaba activa
+                    if (!isActive) {
+                        this.classList.add('active');
+                        if (content) {
+                            content.classList.add('open');
+                        }
+                    }
+                });
+            });
+
+            // ============================================
+            // NAVEGACIÓN CON FLECHAS DEL TECLADO
+            // ============================================
+            const sections = document.querySelectorAll('.section');
+            let currentSectionIndex = 0;
+
+            function scrollToSection(index) {
+                if (index < 0) index = 0;
+                if (index >= sections.length) index = sections.length - 1;
+                currentSectionIndex = index;
+                sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                updateNavButtons();
+            }
+
+            function updateNavButtons() {
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            document.addEventListener('keydown', function(e) {
+                // Evitar interferir con inputs o textareas
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    scrollToSection(currentSectionIndex + 1);
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    scrollToSection(currentSectionIndex - 1);
+                }
+            });
+
+            // Botones de flecha
+            document.getElementById('prevBtn').addEventListener('click', function() {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            document.getElementById('nextBtn').addEventListener('click', function() {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            // ============================================
+            // BARRA DE PROGRESO
+            // ============================================
+            const progressBar = document.getElementById('progressBar');
+
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = progress + '%';
+            });
+
+            // ============================================
+            // DETECTAR SECCIÓN ACTUAL AL HACER SCROLL
+            // ============================================
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const index = Array.from(sections).indexOf(entry.target);
+                        if (index !== -1) {
+                            currentSectionIndex = index;
+                            updateNavButtons();
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(function(section) {
+                observer.observe(section);
+            });
+
+            // ============================================
+            // INICIALIZAR
+            // ============================================
+            updateNavButtons();
+
+            // Abrir la primera sección por defecto
+            if (sections.length > 0) {
+                const firstHeader = sections[0].querySelector('.section-header');
+                const firstContent = sections[0].querySelector('.section-content');
+                if (firstHeader && firstContent) {
+                    firstHeader.classList.add('active');
+                    firstContent.classList.add('open');
+                }
+            }
+
+        })();
+    </script>
+
+</body>
+</html>
